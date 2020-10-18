@@ -1,3 +1,8 @@
+<!--
+ * @Date           : 2020-10-18 22:11:03
+ * @FilePath       : /ping-space/src/layouts/MainLayout.vue
+ * @Description    : 
+-->
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
@@ -12,10 +17,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+           平：学习笔记
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div> 加油！</div>
       </q-toolbar>
     </q-header>
 
