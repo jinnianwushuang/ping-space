@@ -14,9 +14,12 @@
     "core-js": "^3.6.5",
     "quasar": "^1.0.0",
     "vue-i18n": "^8.0.0"
+
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.0"
+    "@quasar/app": "^2.0.0",
+    "@quasar/quasar-app-extension-qmarkdown": "^1.0.34",
+    "@quasar/quasar-app-extension-qpdfviewer": "^1.0.0-beta.8"
   },
   "browserslist": [
     "ie >= 11",

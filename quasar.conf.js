@@ -71,6 +71,19 @@ module.exports = function (/* ctx */) {
       // https://quasar.dev/quasar-cli/handling-webpack
       extendWebpack (cfg) {
       },
+
+      chainWebpack(config){
+        // config.module .rule("md")
+        // .test(/\.md$/)
+        // .use("vue-loader")
+        // .loader("vue-loader")
+        // .end()
+        // .use("vue-markdown-loader")
+        // .loader("vue-markdown-loader/lib/markdown-compiler")
+        // .options({
+        //   raw: true
+        // });
+      }
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer

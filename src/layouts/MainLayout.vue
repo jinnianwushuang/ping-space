@@ -1,112 +1,82 @@
 <!--
- * @Date           : 2020-10-18 22:11:03
+ * @Date           : 2020-10-18 22:21:05
  * @FilePath       : /ping-space/src/layouts/MainLayout.vue
  * @Description    : 
 -->
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
-
-        <q-toolbar-title>
-           平：学习笔记
-        </q-toolbar-title>
-
-        <div> 加油！</div>
+        <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+        <q-toolbar-title>{{ title }}</q-toolbar-title>
       </q-toolbar>
     </q-header>
 
     <q-drawer
-      v-model="leftDrawerOpen"
+      v-model="drawer"
       show-if-above
+      :width="200"
+      :breakpoint="500"
       bordered
-      content-class="bg-grey-1"
+      content-class="bg-grey-3"
     >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+      <q-scroll-area class="fit">
+        <q-list v-for="(item, index) in menu" :key="index">
+          <q-item
+            clickable
+              :class="item.name == current_menu?'bg-primary text-white':'bg=white text-black'"
+            v-ripple
+            @click="go_to_router(item)"
+          >
+            <!-- <q-item-section avatar>
+                <q-icon :name="menuItem.icon" />
+              </q-item-section> -->
+            <q-item-section>
+              {{ `${index + 1}.${item.text}` }}
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container class="q-px-lg">
       <router-view />
+      <q-page-scroller
+        position="bottom-right"
+        :scroll-offset="150"
+        :offset="[18, 18]"
+      >
+        <q-btn fab icon="keyboard_arrow_up" color="primary" />
+      </q-page-scroller>
     </q-page-container>
   </q-layout>
 </template>
-
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
+import {menu} from "src/config/menu.js";
 
 export default {
-  name: 'MainLayout',
-  components: { EssentialLink },
-  data () {
+  name: "MyLayout",
+  data() {
     return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
+      title: "平:成长空间",
+
+      drawer: false,
+      menu,
+      current_menu: "temp",
+
+      leftDrawerOpen: false
+    };
+  },
+  created() {
+    this.go_to_router({ name: "temp" });
+  },
+  methods: {
+    go_to_router(item) {
+      this.current_menu = item.name;
+      this.$router.push({
+        name: item.name
+      });
     }
   }
-}
+};
 </script>
